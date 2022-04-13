@@ -1,0 +1,50 @@
+/dts-v1/;
+
+#include "sm7125.dtsi"
+
+/ {
+	model = "Xiaomi Redmi Note 9 Pro";
+	compatible = "xiaomi,miatoll", "qcom,sm7125";
+	qcom,msm-id = <443 0x0>;
+	qcom,board-id = <0x50022 0x1>;
+
+        reserved-memory {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+
+		framebuffer_region@9c000000 {
+                        reg = <0x0 0x9c000000 0x0 0x01700000>;
+                        no-map;
+                };
+
+		mpss_mem: memory@86000000 {
+			reg = <0x0 0x86000000 0x0 0x8400000>;
+			no-map;
+		};
+
+		venus_mem: memory@8ee00000 {
+			reg = <0 0x8ee00000 0 0x500000>;
+			no-map;
+		};
+
+		wlan_mem: memory@93900000 {
+			reg = <0x0 0x93900000 0x0 0x200000>;
+			no-map;
+		};
+        };
+
+        chosen {
+		#address-cells = <2>;
+		#size-cells = <2>;
+		ranges;
+                framebuffer@9c000000 {
+                        compatible = "simple-framebuffer";
+                        reg = <0x0 0x9c000000 0x0 (1080 * 2400 * 4)>;
+                        width = <1080>;
+                        height = <2400>;
+                        stride = <(1080 * 4)>;
+                        format = "a8r8g8b8";
+                };
+        };
+};
