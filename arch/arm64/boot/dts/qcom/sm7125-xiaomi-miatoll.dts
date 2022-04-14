@@ -1,6 +1,14 @@
 /dts-v1/;
 
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
 #include "sm7125.dtsi"
+#include "pm6150.dtsi"
+#include "pm6150l.dtsi"
+
+/delete-node/ &rmtfs_mem;
+/delete-node/ &ipa_fw_mem;
 
 / {
 	model = "Xiaomi Redmi Note 9 Pro";
@@ -32,6 +40,20 @@
 			reg = <0x0 0x93900000 0x0 0x200000>;
 			no-map;
 		};
+
+		ipa_fw_mem: memory@93b00000 {
+			reg = <0x0 0x93b00000 0x0 0x10000>;
+			no-map;
+		};
+
+		rmtfs_mem: memory@f3901000 {
+			compatible = "qcom,rmtfs-mem";
+			reg = <0 0xf3901000 0 0x200000>;
+			no-map;
+
+			qcom,client-id = <1>;
+			qcom,vmid = <15>;
+		};
         };
 
         chosen {
@@ -47,4 +69,8 @@
                         format = "a8r8g8b8";
                 };
         };
+};
+
+&tlmm {
+	gpio-reserved-ranges = <59 4>;
 };
