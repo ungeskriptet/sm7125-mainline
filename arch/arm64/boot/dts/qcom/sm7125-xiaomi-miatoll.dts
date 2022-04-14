@@ -74,3 +74,23 @@
 &tlmm {
 	gpio-reserved-ranges = <59 4>;
 };
+
+&gpi_dma0 {
+	status = "okay";
+};
+
+&gpi_dma1 {
+	status = "okay";
+};
+
+&lpasscc {
+	status = "disabled";
+};
+
+&lpass_cpu {
+	status = "disabled";
+};
+
+&lpass_hm {
+	status = "disabled";
+};
