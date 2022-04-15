@@ -82,6 +82,24 @@
 	};
 };
 
+&ufs_mem_hc {
+	status = "okay";
+
+	vcc-supply = <&vreg_l19a>;
+	vcc-max-microamp = <600000>;
+	vccq2-supply = <&vreg_l12a>;
+	vccq2-max-microamp = <600000>;
+};
+
+&ufs_mem_phy {
+	status = "okay";
+
+	vdda-phy-supply = <&vreg_l4a>;
+	vdda-pll-supply = <&vreg_l3c>;
+	vdda-phy-max-microamp = <62900>;
+	vdda-pll-max-microamp = <18300>;
+};
+
 &usb_1 {
 	status = "okay";
 };
