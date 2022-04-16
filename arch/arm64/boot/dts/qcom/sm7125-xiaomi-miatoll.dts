@@ -58,6 +58,18 @@
 	};
 };
 
+&sdhc_2 {
+	status = "okay";
+
+	pinctrl-names = "default", "sleep";
+	pinctrl-0 = <&sdc2_on>;
+	pinctrl-1 = <&sdc2_off>;
+	vmmc-supply = <&vreg_l9c>;
+	vqmmc-supply = <&vreg_l6c>;
+
+	cd-gpios = <&tlmm 69 GPIO_ACTIVE_HIGH>;
+};
+
 &dsi0 {
 	status = "okay";
 
@@ -66,7 +78,7 @@
 		compatible = "mdss,ft8756-huaxing";
 		reg = <0>;
 
-		reset-gpios = <&tlmm 3 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&tlmm 8 GPIO_ACTIVE_HIGH>;
 
 		port {
 			panel_in: endpoint {
@@ -153,13 +165,65 @@
 
 	vdd-0.8-cx-mx-supply = <&vreg_l9a>;
 	vdd-1.8-xo-supply = <&vreg_l1c>;
-	vdd-1.3-rfa-supply = <&vreg_l2c>;
+	vdd-1.3-r3fa-supply = <&vreg_l2c>;
 	vdd-3.3-ch0-supply = <&vreg_l10c>;
 	vdd-3.3-ch1-supply = <&vreg_l11c>;
 };
 
 &tlmm {
 	gpio-reserved-ranges = <0 4>, <34 4>, <59 4>;
+
+	sdc2_on: sdc2-on {
+		pinconf-clk {
+			pins = "sdc2_clk";
+			bias-disable;
+			drive-strength = <16>;
+		};
+
+		pinconf-cmd {
+			pins = "sdc2_cmd";
+			bias-pull-up;
+			drive-strength = <10>;
+		};
+
+		pinconf-data {
+			pins = "sdc2_data";
+			bias-pull-up;
+			drive-strength = <10>;
+		};
+
+		pinconf-sd-cd {
+			pins = "gpio69";
+			bias-pull-up;
+			drive-strength = <2>;
+		};
+	};
+
+	sdc2_off: sdc2-off {
+		pinconf-clk {
+			pins = "sdc2_clk";
+			bias-disable;
+			drive-strength = <2>;
+		};
+
+		pinconf-cmd {
+			pins = "sdc2_cmd";
+			bias-pull-up;
+			drive-strength = <2>;
+		};
+
+		pinconf-data {
+			pins = "sdc2_data";
+			bias-pull-up;
+			drive-strength = <2>;
+		};
+
+		pinconf-sd-cd {
+			pins = "gpio69";
+			bias-pull-up;
+			drive-strength = <2>;
+		};
+	};
 };
 
 &gpi_dma0 {
